@@ -6,17 +6,23 @@ int main(){
 		for(int i = 0; i < sizeof(arr)/sizeof(int); i++)
 			if(arr[i]&1)
 				sum += arr[i];
-		printf("From child process with ID %d evaluated sum of odd elements: %d\n", getpid(), sum);
+		printf("From child process with ID %d & Parent %d evaluated sum of odd elements: %d\n", getpid(), getppid(), sum);
 	}
 	else{
 		for(int i = 0; i < sizeof(arr)/sizeof(int); i++)
 			if(!(arr[i]&1))
 				sum += arr[i];
-		printf("From parent process with ID %d evaluated sum of even elements: %d\n", getppid(), sum);
+		printf("From parent process with ID %d & Parent %d evaluated sum of even elements: %d\n", getpid(), getppid(), sum);
 	}
 	return 0;
 }
 
+
+/*
+From parent process with ID 39469 & Parent 39462 evaluated sum of even elements: 30
+From child process with ID 39470 & Parent 39469 evaluated sum of odd elements: 25
+
+*/
 /* TERMINAL
 cse2102040024@vssutcse-ProLiant-ML350-Gen9:~/OS_LAB$ gcc -o Lab1P3.exe Lab1P3.c
 Lab1P3.c: In function ‘main’:
