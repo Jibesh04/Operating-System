@@ -10,6 +10,13 @@ waiting time from given data as followed:
 #include <iomanip>
 using namespace std;
 
+float average(int arr[], int n){
+    int sum = 0;
+    for(int i = 0; i < n; i++)
+        sum += arr[i];
+    return (float)sum / (float)n;
+}
+
 int main(){
     int n;
     cout<<"Enter total number of Processes: ";
@@ -36,6 +43,9 @@ int main(){
         cout<<setw(4)<<ProcessID[i]<<"\t"<<setw(4)<<BurstT[i]<<"\t"<<setw(4)<<ArrT[i]<<"\t";
         cout<<setw(4)<<CompT[i]<<"\t"<<setw(4)<<TAT[i]<<"\t"<<setw(4)<<WaitT[i]<<"\t"<<setw(4)<<RespT[i]<<endl;
     }
+
+    cout<<"Average Turn Around Time: "<<average(TAT, n)<<endl;
+    cout<<"Average Waiting Time: "<<average(WaitT, n)<<endl;
     return 0;
 }
 
@@ -51,4 +61,6 @@ P ID    Brst T  Arr T   Comp T  TA T    Wait T  Resp T
    1      24       0      24      24       0       0
    2       3       0      27      27      24      24
    3       3       0      30      30      27      27
+Average Turn Around Time: 27
+Average Waiting Time: 17
 */
