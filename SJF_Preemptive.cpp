@@ -1,20 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
 // structure for every process
-struct Process
-{
+struct Process{
    int pid; // Process ID
    int bt;  // Burst Time
    int art; // Arrival Time
 };
-void findTurnAroundTime(Process proc[], int n, int wt[], int tat[])
-{
+void findTurnAroundTime(Process proc[], int n, int wt[], int tat[]){
    for (int i = 0; i < n; i++)
       tat[i] = proc[i].bt + wt[i];
 }
 // waiting time of all process
-void findWaitingTime(Process proc[], int n, int wt[])
-{
+void findWaitingTime(Process proc[], int n, int wt[]){
    int rt[n];
    for (int i = 0; i < n; i++)
       rt[i] = proc[i].bt;
@@ -59,8 +56,7 @@ void findWaitingTime(Process proc[], int n, int wt[])
    }
 }
 // Function to calculate average time
-void findavgTime(Process proc[], int n)
-{
+void findavgTime(Process proc[], int n){
    int wt[n], tat[n], total_wt = 0, total_tat = 0;
    // Function to find waiting time of all
    // processes
@@ -82,8 +78,7 @@ void findavgTime(Process proc[], int n)
    cout << "\nAverage turn around time = " << (float)total_tat / (float)n;
 }
 // main function
-int main()
-{
+int main(){
    Process proc[] = {{1, 5, 1}, {2, 3, 1}, {3, 6, 2}, {4, 5, 3}};
    int n = sizeof(proc) / sizeof(proc[0]);
    findavgTime(proc, n);

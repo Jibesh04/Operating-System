@@ -93,6 +93,7 @@ int main(){
 }
 
 /* TERMINAL
+
 PS D:\Junior\Study\Operating-System> g++ -o .\SJF_NonPreemptive_Scheduling.exe .\SJF_NonPreemptive_Scheduling.cpp
 PS D:\Junior\Study\Operating-System> .\SJF_NonPreemptive_Scheduling.exe
 Enter total number of Processes: 4
