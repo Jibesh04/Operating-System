@@ -26,7 +26,7 @@ void evaluateTimePrNP(Process P[], int n, float & av_WT, float & av_TAT){
 	int rem[n], comp[n], tat[n], wt[n];
 	for(int i = 0; i < n; i++)
 		rem[i] = P[i].bt;
-	int n_cmp = 0, mpp, t = P[0].arr, priority = P[0].pr;
+	int n_cmp = 0, mpp = 0, t = P[0].arr, priority = P[0].pr;
 	while(n_cmp < n){
 		for(int i = 0; i < n; i++)
 			if(P[i].pr > priority && rem[i] && P[i].arr <= t){
