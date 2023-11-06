@@ -18,7 +18,7 @@ int isLessthan(int* need, int* work, int n){
 	return 1;
 }
 
-int addTo(int* alloc, int* work, int n){
+void addTo(int* alloc, int* work, int n){
 	for(int i = 0; i < n; i++)
 		work[i] += alloc[i];
 }
@@ -39,7 +39,7 @@ int main(){
 	scanf("%d", &nR);
 	int avI[nR]; // Available initial resources
 	printf("Enter number of Available initial resources of\n");
-	for(int i = 0; i < nR; i++){\
+	for(int i = 0; i < nR; i++){
 		printf("Type %d: ", i + 1);
 		scanf("%d", &avI[i]);
 	}
@@ -66,7 +66,7 @@ int main(){
 	for(int i = 0; i < nP; i++)
 		for(int j = 0; j < nR; j++)
 			need[i][j] = maxN[i][j] - alloc[i][j];
-	int finish[nP]; // finish
+	int finish[nP], safeSeq[nP], k = 0; // finish
 	// int nPendingP; // Pending Processes
 	for(int i = 0; i < nP; i++)
 		if(needSatisfied(need[i], nR))
@@ -75,20 +75,21 @@ int main(){
 			finish[i] = 0;
 			// nPendingP++;	
 		}
-	printf("Running Banker's Algorithm\n");
+	printf("\nRunning Banker's Algorithm...\n");
 	int flag = 0, cnt, idx = 0;
 	while(1){
 		if(finish[idx] == 0 && isLessthan(need[idx], work, nR)){
 			flag = 0;
 			addTo(alloc[idx], work, nR);
 			finish[idx] = 1;
+			safeSeq[k++] = idx + 1;
 			// nPendingP--;
 			// flag = nPendingP;
 			memset(need[idx], 0, sizeof(need[idx]));
-			printf("Finished Process %d\nWork: ", idx + 1);
-			for(int i = 0; i < nR; i++)
-				printf("%d\t", work[i]);
-			printf("\n");
+			// printf("Finished Process %d\nWork: ", idx + 1);
+			// for(int i = 0; i < nR; i++)
+			// 	printf("%d\t", work[i]);
+			// printf("\n");
 			if(allFinished(finish, nP))
 				break;
 		}
@@ -102,17 +103,22 @@ int main(){
 			break;
 	}
 	if(flag){
-		printf("Deadlock is Detected\n");
-		printf("Need Matrix\n");
-		for(int i = 0; i < nP; i++){
-			printf("Process %d isFinished? %s\n", i + 1, finish[i] == 0 ? "No" : "Yes");
-			for(int j = 0; j < nR; j++)
+		printf("\nDeadlock is Detected\n");
+		// printf("Need Matrix\n");
+		for(int i = 0; i < nP; i++)// {
+			if(!finish[i])
+				printf("Process %d is involved in deadlock\n", i + 1);
+			/* for(int j = 0; j < nR; j++)
 				printf("%d\t", need[i][j]);
-			printf("\n");	
-		}
+			printf("\n"); */	
+		// }
 	}
-	else
-		printf("There is no Deadlock\n");
+	else{
+		printf("\nThere is no Deadlock\nSafe Sequence: ");
+		for(k = 0; k < nP; k++)
+			printf("\t%d", safeSeq[k]);
+		printf("\n");
+	}
 	return 0;
 }
 
@@ -149,4 +155,34 @@ Work: 7	5	5
 Finished Process 3
 Work: 10	5	7	
 There is no Deadlock
+*/
+
+
+// Modified Output
+/*
+PS D:\Junior\Study\Operating-System> g++ -o BankersAlgo.exe .\BankersAlgo.c
+PS D:\Junior\Study\Operating-System> .\BankersAlgo.exe
+Enter number of Processes: 5
+Enter number of Resource Types: 3
+Enter number of Available initial resources of
+Type 1: 10
+Type 2: 5
+Type 3: 7
+Enter maximum need of each resource type for
+Process 1: 7 5 3
+Process 2: 3 2 2
+Process 3: 9 0 2
+Process 4: 2 2 2
+Process 5: 4 3 3
+Enter allocation of each resource type for
+Process 1: 0 1 0
+Process 2: 2 0 0
+Process 3: 3 0 2
+Process 4: 2 1 1
+Process 5: 0 0 2
+
+Running Banker's Algorithm...
+
+There is no Deadlock
+Safe Sequence:  2       4       5       1       3
 */

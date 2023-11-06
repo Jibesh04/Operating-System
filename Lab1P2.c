@@ -3,7 +3,7 @@
 int main(){
 	int a;
 	// In C, function takes argument from R.H.S. so first line of fork() will give appropriate process type
-	printf("%s\tReturn Value: %d\n",  a == 0 ? "child process" : "parent process", a = fork());
+	printf("%s\tReturn Value: %d\n", a == 0 ? "child process" : "parent process", a = fork());
 	// But this is not correct as value of a is first checked then assigned
 	printf("Return Value: %d\t%s\n", a = fork(), a == 0 ? "child process" : "parent process");
 	return 0;

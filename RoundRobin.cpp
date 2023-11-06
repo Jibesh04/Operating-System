@@ -32,7 +32,7 @@ void evaluateTimeRR(Process P[], int n, int q, float & av_WT, float & av_TAT){
 		rem[i] = P[i].bt;
 	}
 	int i = 0, t = P[0].arr;
-	int n_cmp = 0;
+	// int n_cmp = 0;
 	Process curr;
 	rq.push(P[0]);
 	P[0].inQueue = true;
@@ -67,7 +67,7 @@ void evaluateTimeRR(Process P[], int n, int q, float & av_WT, float & av_TAT){
 		curr.inQueue = false;
 		i = curr.idx;
 		for(int j = 0; j < n; j++)
-			if(P[j].arr <= t + min(rem[i], q) && P[j].inQueue == false){
+			if(P[j].arr <= t + min(rem[i], q) && P[j].inQueue == false && rem[j] > 0){
 				P[j].inQueue = true;
 				rq.push(P[j]);
 			}
